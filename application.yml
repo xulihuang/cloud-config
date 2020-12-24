@@ -10,7 +10,7 @@ spring:
 ---
 spring:
   application:
-    name: abc-msg-dev
+    name: abc-msg-test
   profiles: test
 
 
