@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    include: datasource-dev
+    active: dev
+  application:
+    name: ehr-core
+server:
+  port: 8082
+  eureka:
+    port: 8761
+
+eureka:
+  instance:
+    ip-address: localhost
+    hostname: ${eureka.instance.ip-address}
+    prefer-ip-address: true
+    instance-id: ${eureka.instance.ip-address}:${spring.application.name}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.eureka.port}/eureka/
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+
+task:
+  pool:
+    size: 4
