@@ -1,0 +1,30 @@
+server:
+  port: 9092
+  eureka:
+    port: 8761
+
+spring:
+  application:
+    name: ehr-zuul
+  profiles:
+    active: dev
+
+eureka:
+  instance:
+    instance-id: ${eureka.instance.ip-address}:${spring.application.name}:${server.port}:@project.version@
+    ip-address: localhost
+    hostname: ${eureka.instance.ip-address}
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.eureka.port}/eureka/
+zuul:
+  routes:
+    ehr-core: /core/**
+    ehr-organization: /org/**
+    ehr-person: /person/**
+    ehr-auth: /**
+  ignored-services: "*"
+  ignored-headers: token
+  sensitive-headers: token
+
