@@ -30,9 +30,6 @@ eureka:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.eureka.port}/eureka/
 
-spring:
-  
-
 feign:
   client:
     config:
