@@ -1,6 +1,5 @@
 spring:
   profiles:
-    include: datasource-dev
     active: dev
   application:
     name: ehr-core
