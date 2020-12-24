@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  application:
+    name: abc-msg-dev
+  profiles: dev
+
+---
+spring:
+  application:
+    name: abc-msg-dev
+  profiles: test
+
+
+
+
