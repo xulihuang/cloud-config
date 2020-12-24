@@ -1,0 +1,40 @@
+# eureka 生产环境配置
+spring:
+  profiles:
+    active: prod
+
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: localhost
+    # 使用 ip 注册到注册中心实例化
+    prefer-ip-address: true
+    # 安全端口
+    secure-port: ${server.port}
+    # 指示是否应为流量启用安全端口
+    secure-port-enabled: true
+    # 关闭非安全端口
+    non-secure-port-enabled: false
+    home-page-url: http://${eureka.instance.hostname}:${server.port}/
+  client:
+    # 此实例是否从注册中心获取注册信息
+    fetch-registry: false
+    # 是否将此实例注册到注册中心
+    register-with-eureka: false
+    # eureka 注册地址
+    service-url:
+      # 分区地址，集群采用逗号分隔
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    # 同步为空时，等待时间
+    wait-time-in-ms-when-sync-empty: 0
+    # 指定 Eviction Task 定时任务的调度频率，用于剔除过期的实例，此处未使用默认频率，频率为：5/秒，默认为：60/秒
+    # 有效防止的问题是：应用实例异常挂掉，没能在挂掉之前告知Eureka server要下线掉该服务实例信息。
+    # 这个就需要依赖Eureka server的EvictionTask去剔除。
+    eviction-interval-timer-in-ms: 5000
+    # 设置read Write CacheMap的expire After Write参数，指定写入多长时间后过期
+    # 有效防止的问题是：应用实例下线时有告知Eureka server下线，但是由于Eureka server的REST API有response cache，
+    # 因此需要等待缓存过期才能更新
+    response-cache-auto-expiration-in-seconds: 60
